@@ -76,33 +76,4 @@ public class Sm2Test2 {
 
     }
 
-    /**
-     * ECC公钥加密
-     *
-     * @param pubKey  ECC公钥
-     * @param srcData 源数据
-     * @return SM2密文，实际包含三部分：ECC公钥、真正的密文、公钥和原文的SM3-HASH值
-     * @throws InvalidCipherTextException
-     */
-    public static byte[] encrypt(ECPublicKeyParameters pubKey, byte[] srcData)throws InvalidCipherTextException {
-        SM2Engine engine = new SM2Engine();
-        ParametersWithRandom pwr = new ParametersWithRandom(pubKey, new SecureRandom());
-        engine.init(true, pwr);
-        return engine.processBlock(srcData, 0, srcData.length);
-    }
-
-    /**
-     * ECC私钥解密
-     *
-     * @param priKey        ECC私钥
-     * @param sm2CipherText SM2密文，实际包含三部分：ECC公钥、真正的密文、公钥和原文的SM3-HASH值
-     * @return 原文
-     * @throws InvalidCipherTextException
-     */
-    public static byte[] decrypt(ECPrivateKeyParameters priKey, byte[] sm2CipherText) throws InvalidCipherTextException {
-        SM2Engine engine = new SM2Engine();
-        engine.init(false, priKey);
-        return engine.processBlock(sm2CipherText, 0, sm2CipherText.length);
-    }
-
 }

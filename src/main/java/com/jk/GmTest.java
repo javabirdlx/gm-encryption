@@ -40,10 +40,11 @@ public class GmTest {
             final BouncyCastleProvider bc = new BouncyCastleProvider();
             byte[] encPub = Base64.decode(publicKey);
             byte[] encPriv = Base64.decode(privateKey);
-            KeyFactory keyFact = KeyFactory.getInstance("EC", bc);
+            KeyFactory factory = KeyFactory.getInstance("SM2");
+            //KeyFactory keyFact = KeyFactory.getInstance("EC", bc);
             // 根据采用的编码结构反序列化公私钥
-            PublicKey publicKey = keyFact.generatePublic(new X509EncodedKeySpec(encPub));
-            PrivateKey privateKey = keyFact.generatePrivate(new PKCS8EncodedKeySpec(encPriv));
+            PublicKey publicKey = factory.generatePublic(new X509EncodedKeySpec(encPub));
+            PrivateKey privateKey = factory.generatePrivate(new PKCS8EncodedKeySpec(encPriv));
 //        try {
 //            ECPrivateKeyParameters ecPrivateKeyParameters = GmTest.buildECPrivateKeyParameters(privateKey);
 //            // 签名原文
